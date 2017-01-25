@@ -1,7 +1,5 @@
 package com.sukhjinder.substitutioncipher;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -50,12 +48,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("label", output.getText());
-                clipboard.setPrimaryClip(clip);
                 userText.setText(output.getText());
 
-                Snackbar.make(view, "Copied to Clipboard", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Copied", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
             }
@@ -93,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 oddShift = oddNP.getValue();
                 evenShift = evenNP.getValue();
-                userString = (userText.getText().toString());
+                userString = (userText.getText().toString().trim());
                 shift(oddShift, evenShift);
                 decrypt(userString);
             }
@@ -173,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private static void shift(int oddShift, int evenShift) {
-
         //		Copies original cipher text into two arrays one for the odd cipher and the other for even cipher
         oddCipher = new ArrayList<String>();
         evenCipher = new ArrayList<String>();
@@ -191,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
             oddCipher.add(oddCipher.size(), element);
             oddShift--;
         }
+
         //	Shifts the letters for the evenCipher text
         while (evenShift > 0) {
             element = evenCipher.remove(0);
